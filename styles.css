@@ -1,0 +1,22 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(141, 143, 246);
+}
+
+#pencil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    background-color: aqua;
+}
+
+#pencil h1 {
+   font-size: 60px;
+}
+
+#pencil img {
+    height: 200px;
+    width: auto;
+    padding: 0;
+}
