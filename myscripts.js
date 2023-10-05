@@ -8,15 +8,26 @@ const clearButton = document.querySelector('.clear');
 let isHover = true;
 let isDraw = false;
 let isRainbow = false;
-let setColor;
+let setColor = 'black';
 let totalPixels = 100;
 
-// main();
-setGrid();
+main();
+// setGrid();
+
+function mouseoverHandler(event) {
+    //get the class, change color
+    let target = '.' + event.target.classList[1];
+    document.querySelector(target).style.backgroundColor = setColor;
+}
 
 function main() {
-    //draw mode button
+    setGrid();
 
+    if(isHover === true) {
+        gridContainer.addEventListener('mouseover', mouseoverHandler);
+    }
+
+    //draw mode button
     //rainbow mode button
     //clear button
     //set grid size button
@@ -46,3 +57,5 @@ function setGrid() {
 // the user can customize the settings to his liking
 //Buttons: -draw mode, -rainbow mode, -clear, -set grid size, -set color
 //the size of the drawing container will not change, only the pixel inside it will
+
+
