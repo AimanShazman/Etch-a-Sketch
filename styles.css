@@ -20,3 +20,39 @@ body {
     width: auto;
     padding: 0;
 }
+
+.gridContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#grid {
+    display: flex;
+    flex-flow: row wrap;
+    height: 500px;
+    width: 500px;
+    border: solid 10px bisque;
+}
+
+#drawingTools {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+    padding: 5px;
+    gap: 5px;
+}
+
+#drawingTools .colorContainer {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#drawingTools button {
+    display: flex;
+    flex: 1 1 auto;
+    /* border: solid 2px black; */
+    border-radius: 1em;
+}
