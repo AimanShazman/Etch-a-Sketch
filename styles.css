@@ -50,9 +50,25 @@ body {
     gap: 5px;
 }
 
+#drawingTools .setGridSize {
+    display: flex;
+}
+
+.setGridSize .gridSrollbar {
+    display: flex;
+    flex-direction: column;
+    flex: 2 1 auto;
+}
+
+
+
 #drawingTools button {
     display: flex;
     flex: 1 1 auto;
     /* border: solid 2px black; */
     border-radius: 1em;
+}
+
+#drawingTools p {
+    text-align: center;
 }

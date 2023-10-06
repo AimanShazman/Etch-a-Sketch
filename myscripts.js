@@ -1,53 +1,80 @@
 const gridContainer = document.querySelector('#grid');
-const colorButton = document.querySelector('.color');
-const rainbowButton = document.querySelector('.rainbow');
-const drawButton = document.querySelector('.draw');
-const eraserButton = document.querySelector('.eraser');
-const clearButton = document.querySelector('.clear');
+const drawingTools = document.querySelector('#drawingTools');
+const gridInput = document.querySelector('#gridInput');
+const displayGrid = document.querySelector('#displayGrid');
+const gridSizeButton = document.querySelector('.gridSizeButton');
 
 let isHover = true;
 let isDraw = false;
 let isRainbow = false;
 let setColor = 'black';
-let totalPixels = 100;
+let grid; 
 
 main();
-// setGrid();
 
 function mouseoverHandler(event) {
-    //get the class, change color
+    //get the className, change color
     let target = '.' + event.target.classList[1];
     document.querySelector(target).style.backgroundColor = setColor;
 }
 
 function main() {
-    setGrid();
+    getInitialGrid();
+    gridScrollbar();
+    createGrid();
+
+    gridSizeButton.addEventListener('click', createGrid);
 
     if(isHover === true) {
         gridContainer.addEventListener('mouseover', mouseoverHandler);
     }
 
+    //set grid size button
+    drawingTools.addEventListener('click', (event) => {
+        let target = event.target;
+
+        // switch(target.className) {
+        //     //2, 15, 45, 64
+        //     case 'setGrid':
+        //         console.log('setGrid is clicked');
+        //         break;
+        // }
+    });
     //draw mode button
     //rainbow mode button
     //clear button
-    //set grid size button
     //set color
 }
 
-function setGrid() {
-    let gridWidth = gridContainer.clientWidth; 
+function getInitialGrid() {
+    grid = gridInput.value;
+}
 
-    //width of each pixel = sqrt of total number of pixels /  grid's width
-    //Next, convert it to a percentage of the grid's width. (ans*100 / grid's width)
-    let eachPixelWidth = Math.round((gridWidth / Math.sqrt(totalPixels))*100 / gridWidth); 
+function gridScrollbar() {
+    displayGrid.textContent = grid + ' x ' + grid;
+
+    gridInput.addEventListener('input', (event) => {
+        grid = event.target.value;
+        displayGrid.textContent = grid + ' x ' + grid;
+    });
+}
+
+function createGrid() {
+    //clear the grid
+    gridContainer.textContent = '';
+    let totalGridWidth = gridContainer.clientWidth; 
+
+    //width of each grid(ans) = number of grid in one row / grid's width.
+    //Next, convert it to a percentage of the grid's width. 
+    let gridWidth = Math.round((totalGridWidth / grid) * (100 / totalGridWidth)); 
 
     //create grid 
-    for (let i = 1; i <= totalPixels; i++) {
+    for (let i = 1; i <= grid * grid; i++) {
         const newDiv = document.createElement('div');
-        let className = "pixel_" + i;
-        newDiv.classList.add("pixels", className);
+        let className = "grid_" + i;
+        newDiv.classList.add("grids", className);
         newDiv.style.cssText = "flex: 1 1 auto; background-color: white;";
-        newDiv.style.minWidth = eachPixelWidth + '%';
+        newDiv.style.minWidth = gridWidth + '%';
         gridContainer.appendChild(newDiv);
     }
     return;
