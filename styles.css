@@ -21,7 +21,7 @@ body {
     padding: 0;
 }
 
-.gridContainer {
+.container {
     display: flex;
     justify-content: center;
 }

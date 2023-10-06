@@ -2,7 +2,6 @@ const gridContainer = document.querySelector('#grid');
 const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
-const gridSizeButton = document.querySelector('.gridSizeButton');
 
 let isHover = true;
 let isDraw = false;
@@ -10,40 +9,10 @@ let isRainbow = false;
 let setColor = 'black';
 let grid; 
 
-main();
-
 function mouseoverHandler(event) {
     //get the className, change color
     let target = '.' + event.target.classList[1];
     document.querySelector(target).style.backgroundColor = setColor;
-}
-
-function main() {
-    getInitialGrid();
-    gridScrollbar();
-    createGrid();
-
-    gridSizeButton.addEventListener('click', createGrid);
-
-    if(isHover === true) {
-        gridContainer.addEventListener('mouseover', mouseoverHandler);
-    }
-
-    //set grid size button
-    drawingTools.addEventListener('click', (event) => {
-        let target = event.target;
-
-        // switch(target.className) {
-        //     //2, 15, 45, 64
-        //     case 'setGrid':
-        //         console.log('setGrid is clicked');
-        //         break;
-        // }
-    });
-    //draw mode button
-    //rainbow mode button
-    //clear button
-    //set color
 }
 
 function getInitialGrid() {
@@ -59,9 +28,12 @@ function gridScrollbar() {
     });
 }
 
-function createGrid() {
-    //clear the grid
+function clear() {
     gridContainer.textContent = '';
+}
+
+function createGrid() {
+    clear();
     let totalGridWidth = gridContainer.clientWidth; 
 
     //width of each grid(ans) = number of grid in one row / grid's width.
@@ -79,6 +51,34 @@ function createGrid() {
     }
     return;
 }
+
+function main() {
+    getInitialGrid();
+    gridScrollbar();
+    createGrid();
+
+    if(isHover === true) {
+        gridContainer.addEventListener('mouseover', mouseoverHandler);
+    }
+
+    //set grid size button
+    drawingTools.addEventListener('click', (event) => {
+        let target = event.target;
+
+        switch(target.className) {
+            case 'setGrid':
+            case 'clear':
+                createGrid();
+                break;
+        }
+    });
+    //draw mode button
+    //rainbow mode button
+    //clear button
+    //set color
+}
+
+main();
 
 //default: set the grid to 16x16, hover mode to draw, black color
 // the user can customize the settings to his liking
