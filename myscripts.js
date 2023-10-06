@@ -2,17 +2,18 @@ const gridContainer = document.querySelector('#grid');
 const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
+const setColor = document.querySelector('#setColor');
 
 let isHover = true;
 let isDraw = false;
 let isRainbow = false;
-let setColor = 'black';
+let color = 'black';
 let grid; 
 
 function mouseoverHandler(event) {
     //get the className, change color
     let target = '.' + event.target.classList[1];
-    document.querySelector(target).style.backgroundColor = setColor;
+    document.querySelector(target).style.backgroundColor = color;
 }
 
 function getInitialGrid() {
@@ -25,6 +26,12 @@ function gridScrollbar() {
     gridInput.addEventListener('input', (event) => {
         grid = event.target.value;
         displayGrid.textContent = grid + ' x ' + grid;
+    });
+}
+
+function colorHandler() {
+    setColor.addEventListener('input', (event) => {
+        color = event.target.value;
     });
 }
 
@@ -56,7 +63,8 @@ function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
-
+    colorHandler();
+    
     if(isHover === true) {
         gridContainer.addEventListener('mouseover', mouseoverHandler);
     }
