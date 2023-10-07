@@ -12,6 +12,10 @@ let isEraser = false;
 let color = 'black';
 let grid; 
 
+function clear() {
+    gridContainer.textContent = '';
+}
+
 function removeHandler(...target) {
     for (x in target) {
         const temp = target[x];
@@ -44,16 +48,6 @@ function gridScrollbar() {
     });
 }
 
-function colorHandler() {
-    setColor.addEventListener('input', (event) => {
-        color = event.target.value;
-    });
-}
-
-function clear() {
-    gridContainer.textContent = '';
-}
-
 function createGrid() {
     clear();
     let totalGridWidth = gridContainer.clientWidth; 
@@ -74,12 +68,6 @@ function createGrid() {
     return;
 }
 
-function hoverHandler(event) {
-    //get the className, change color
-    let target = '.' + event.target.classList[1];
-    document.querySelector(target).style.backgroundColor = color;
-}
-
 function rainbowHandler(event) {
     let color = [];
     for (let i = 0; i < 3; i++) {
@@ -91,22 +79,24 @@ function rainbowHandler(event) {
     document.querySelector(target).style.backgroundColor = randomColor; 
 }
 
+function colorHandler() {
+    setColor.addEventListener('input', (event) => {
+        color = event.target.value;
+    });
+}
+
+function hoverHandler(event) {
+    //get the className, change color
+    let target = '.' + event.target.classList[1];
+    document.querySelector(target).style.backgroundColor = color;
+}
+
 function drawHandler(event) {
     let target = '.' + event.target.classList[1];
     document.querySelector(target).style.backgroundColor = color;
 }
 
-function main() {
-    getInitialGrid();
-    gridScrollbar();
-    createGrid();
-
-    //set mouse hover effect by default
-    gridContainer.addEventListener('mouseover', hoverHandler);
-
-    colorHandler();
-
-    //set grid size button
+function buttonHandler() {
     drawingTools.addEventListener('click', (event) => {
         let target = event.target;
 
@@ -133,10 +123,17 @@ function main() {
                 break;
         }
     });
-    //draw mode button
-    //rainbow mode button
-    //clear button
-    //set color
+}
+
+function main() {
+    getInitialGrid();
+    gridScrollbar();
+    createGrid();
+    colorHandler();
+    buttonHandler();
+
+    //set mouse hover effect by default
+    gridContainer.addEventListener('mouseover', hoverHandler);
 }
 
 main();
