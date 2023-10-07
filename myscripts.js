@@ -3,17 +3,32 @@ const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
 const setColor = document.querySelector('#setColor');
+const rainbowButton = document.querySelector('.rainbow');
 
 let isHover = true;
 let isDraw = false;
 let isRainbow = false;
+let isEraser = false;
 let color = 'black';
 let grid; 
 
-function mouseoverHandler(event) {
-    //get the className, change color
-    let target = '.' + event.target.classList[1];
-    document.querySelector(target).style.backgroundColor = color;
+function removeHandler(...target) {
+    for (x in target) {
+        const temp = target[x];
+        console.log(temp);
+
+        if (temp === 'isHover') {
+            gridContainer.removeEventListener('mouseover', hoverHandler);
+            isHover = false;
+        } else if (temp === 'isDraw') {
+
+        } else if (temp === 'isRainbow') {
+            gridContainer.removeEventListener('mouseover', rainbowHandler);
+            isRainbow = false;
+        } else if (temp === 'isEraser') {
+
+        }
+    }
 }
 
 function getInitialGrid() {
@@ -59,21 +74,59 @@ function createGrid() {
     return;
 }
 
+function hoverHandler(event) {
+    //get the className, change color
+    let target = '.' + event.target.classList[1];
+    document.querySelector(target).style.backgroundColor = color;
+}
+
+function rainbowHandler(event) {
+    let color = [];
+    for (let i = 0; i < 3; i++) {
+        color.push(Math.floor(Math.random() * 256));
+    }
+    let randomColor = 'rgb(' + color.join(', ') + ')';
+
+    let target = '.' + event.target.classList[1];
+    document.querySelector(target).style.backgroundColor = randomColor; 
+}
+
+function drawHandler(event) {
+    let target = '.' + event.target.classList[1];
+    document.querySelector(target).style.backgroundColor = color;
+}
+
 function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
+
+    //set mouse hover effect by default
+    gridContainer.addEventListener('mouseover', hoverHandler);
+
     colorHandler();
-    
-    if(isHover === true) {
-        gridContainer.addEventListener('mouseover', mouseoverHandler);
-    }
 
     //set grid size button
     drawingTools.addEventListener('click', (event) => {
         let target = event.target;
 
         switch(target.className) {
+            case 'draw':
+                if(isHover === true) {
+                    removeHandler('isHover');
+                    gridContainer.addEventListener('click', drawHandler);
+                    isDraw = true;
+                } else if (isDraw === true) {
+                    removeHandler('isDraw');
+                    gridContainer.addEventListener('mouseover', hoverHandler);
+                    isHover = true;
+                }
+                break;
+            case 'rainbow':
+                if((isRainbow === false) && (isHover === true)) {
+                    gridContainer.addEventListener('mouseover', rainbowHandler);
+                }
+                break;
             case 'setGrid':
             case 'clear':
                 createGrid();
@@ -88,9 +141,10 @@ function main() {
 
 main();
 
-//default: set the grid to 16x16, hover mode to draw, black color
-// the user can customize the settings to his liking
-//Buttons: -draw mode, -rainbow mode, -clear, -set grid size, -set color
-//the size of the drawing container will not change, only the pixel inside it will
+//rainbow, draw, hover, eraser
+//add hover
+//when draw button is clicked,
+//remove
 
 
+//toggle between draw and hover
