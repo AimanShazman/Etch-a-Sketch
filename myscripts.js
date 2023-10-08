@@ -79,7 +79,7 @@ function rainbowHandler(event) {
     document.querySelector(target).style.backgroundColor = randomColor; 
 }
 
-function colorHandler() {
+function setColor() {
     setColor.addEventListener('input', (event) => {
         color = event.target.value;
     });
@@ -148,7 +148,7 @@ function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
-    colorHandler();
+    setColor();
     buttonHandler();
 
     //press e to toggle between hover and draw
