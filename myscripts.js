@@ -181,6 +181,14 @@ function setColor(event) {
     color = event.target.value;
 }
 
+function setColorHandler() {
+    if (!isSetColor) {
+        removeHandler('isRainbow', 'isEraser');
+        addHandler('setColor');
+        isSetColor = true;
+    }
+}
+
 function buttonHandler() {
     drawingTools.addEventListener('click', (event) => {
         let target = event.target;
@@ -191,11 +199,7 @@ function buttonHandler() {
                 break;
 
             case 'setColor':
-                if (!isSetColor) {
-                    removeHandler('isRainbow', 'isEraser');
-                    addHandler('setColor');
-                    isSetColor = true;
-                }
+                setColorHandler();
                 break;
 
             case 'rainbow':
