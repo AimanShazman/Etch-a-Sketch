@@ -2,12 +2,13 @@ const gridContainer = document.querySelector('#grid');
 const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
-const setColorContainer = document.querySelector('#setColor');
+const setColorButton = document.querySelector('.setColor');
 const rainbowButton = document.querySelector('.rainbow');
 const pageContainer = document.querySelector('#pageContainer');
 
 let isHover = true;
 let isDraw = false;
+let isSetColor = true;
 let isRainbow = false;
 let isEraser = false;
 let color = 'black';
@@ -25,7 +26,11 @@ function removeHandler(...target) {
             gridContainer.removeEventListener('mouseover', hoverHandler);
             isHover = false;
         } else if (temp === 'isDraw') {
-
+            gridContainer.removeEventListener('click', drawHandler);
+            isDraw = false;
+        } else if (temp === 'isSetColor') {
+            setColorButton.removeEventListener('input', setColor);
+            isSetColor = false;
         } else if (temp === 'isRainbow') {
             gridContainer.removeEventListener('mouseover', rainbowHandler);
             isRainbow = false;
@@ -68,23 +73,6 @@ function createGrid() {
     return;
 }
 
-function rainbowHandler(event) {
-    let color = [];
-    for (let i = 0; i < 3; i++) {
-        color.push(Math.floor(Math.random() * 256));
-    }
-    let randomColor = 'rgb(' + color.join(', ') + ')';
-
-    let target = '.' + event.target.classList[1];
-    document.querySelector(target).style.backgroundColor = randomColor; 
-}
-
-function setColor() {
-    setColorContainer.addEventListener('input', (event) => {
-        color = event.target.value;
-    });
-}
-
 function hoverHandler(event) {
     //get the className, change color
     let target = '.' + event.target.classList[1];
@@ -96,25 +84,50 @@ function drawHandler(event) {
     document.querySelector(target).style.backgroundColor = color;
 }
 
+function rainbowHandler() {
+    let colorArray = [];
+    for (let i = 0; i < 3; i++) {
+        colorArray.push(Math.floor(Math.random() * 256));
+    }
+    let randomColor = 'rgb(' + colorArray.join(', ') + ')';
+
+    // let target = '.' + event.target.classList[1];
+    // document.querySelector(target).style.backgroundColor = randomColor; 
+    color = randomColor;
+}
+
+function setColor(event) {
+    color = event.target.value;
+}
+
 function buttonHandler() {
     drawingTools.addEventListener('click', (event) => {
         let target = event.target;
 
         switch(target.className) {
             case 'draw':
-                if((isHover === true) && (isDraw === false)) {
+                if (isHover === true) {
                     removeHandler('isHover');
                     gridContainer.addEventListener('click', drawHandler);
                     isDraw = true;
-                } else if ((isDraw === true) && (isHover === false)) {
+                } else if (isDraw === true) {
                     removeHandler('isDraw');
                     gridContainer.addEventListener('mouseover', hoverHandler);
                     isHover = true;
                 }
                 break;
+            case 'setColor':
+                if (isRainbow === true) {
+                    removeHandler('isRainbow');
+                    setColorButton.addEventListener('input', setColor);
+                    isSetColor = true;
+                }
+                break;
             case 'rainbow':
-                if(isRainbow === false) {
+                if(isSetColor === true) {
+                    removeHandler('isSetColor');
                     gridContainer.addEventListener('mouseover', rainbowHandler);
+                    isRainbow = true;
                 }
                 break;
             case 'setGrid':
@@ -128,7 +141,7 @@ function buttonHandler() {
 function keydownHandler(event) {
     if(event.code === 'KeyE') {
         console.log("keyE is pressed");
-        if(isHover === true) {
+        if (isHover === true) {
             removeHandler('isHover');
             gridContainer.addEventListener('click', drawHandler);
             isDraw = true;
@@ -140,15 +153,12 @@ function keydownHandler(event) {
     }
 }
 
-function colorHandler() {
-
-}
 
 function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
-    setColor();
+    setColorButton.addEventListener('input', setColor);
     buttonHandler();
 
     //press e to toggle between hover and draw
