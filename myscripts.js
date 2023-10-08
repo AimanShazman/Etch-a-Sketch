@@ -2,7 +2,7 @@ const gridContainer = document.querySelector('#grid');
 const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
-const setColor = document.querySelector('#setColor');
+const setColorContainer = document.querySelector('#setColor');
 const rainbowButton = document.querySelector('.rainbow');
 const pageContainer = document.querySelector('#pageContainer');
 
@@ -80,7 +80,7 @@ function rainbowHandler(event) {
 }
 
 function setColor() {
-    setColor.addEventListener('input', (event) => {
+    setColorContainer.addEventListener('input', (event) => {
         color = event.target.value;
     });
 }
@@ -102,11 +102,11 @@ function buttonHandler() {
 
         switch(target.className) {
             case 'draw':
-                if(isHover === true) {
+                if((isHover === true) && (isDraw === false)) {
                     removeHandler('isHover');
                     gridContainer.addEventListener('click', drawHandler);
                     isDraw = true;
-                } else if (isDraw === true) {
+                } else if ((isDraw === true) && (isHover === false)) {
                     removeHandler('isDraw');
                     gridContainer.addEventListener('mouseover', hoverHandler);
                     isHover = true;
@@ -140,7 +140,7 @@ function keydownHandler(event) {
     }
 }
 
-function setColorHandler() {
+function colorHandler() {
 
 }
 
