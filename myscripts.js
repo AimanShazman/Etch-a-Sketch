@@ -11,6 +11,7 @@ let isDraw = false;
 let isSetColor = true;
 let isRainbow = false;
 let isEraser = false;
+let activeButton; //store currently active button when using eraser
 let color = 'black';
 let grid; 
 
@@ -18,24 +19,68 @@ function clear() {
     gridContainer.textContent = '';
 }
 
+function eraser() {
+    if(isEraser === false) {
+        activeButton = checkActiveButton();
+        removeHandler(activeButton);
+        color = 'white';
+        isEraser = true;
+
+    } else if (isEraser === true) {
+        addHandler(activeButton);
+        activeButton = null;
+        isEraser = false;
+    }
+}
+
+function checkActiveButton() {
+    if (isSetColor) {
+        return 'isSetColor';
+    } else if (isRainbow) {
+        return 'isRainbow';
+    }
+}
+
+function addHandler(target) {
+    switch(target) {
+        case 'isHover':
+            gridContainer.addEventListener('mouseover', hoverHandler);
+            isHover = true;
+            break;
+
+        case 'isDraw':
+            gridContainer.addEventListener('click', drawHandler);
+            isDraw = true;
+            break;
+
+        case 'isSetColor':
+            setColorButton.addEventListener('input', setColor);
+            isSetColor = true;
+            break;
+
+        case 'isRainbow':
+            gridContainer.addEventListener('mouseover', rainbowHandler);
+            isRainbow = true;
+            break;
+    }
+}
+
 function removeHandler(...target) {
     for (x in target) {
         const temp = target[x];
 
-        if (temp === 'isHover') {
+        if (temp === 'isHover' && temp) {
             gridContainer.removeEventListener('mouseover', hoverHandler);
             isHover = false;
-        } else if (temp === 'isDraw') {
+        } else if (temp === 'isDraw' && temp) {
             gridContainer.removeEventListener('click', drawHandler);
             isDraw = false;
-        } else if (temp === 'isSetColor') {
+        } else if (temp === 'isSetColor' && temp) {
             setColorButton.removeEventListener('input', setColor);
             isSetColor = false;
-        } else if (temp === 'isRainbow') {
+        } else if (temp === 'isRainbow' && temp) {
             gridContainer.removeEventListener('mouseover', rainbowHandler);
             isRainbow = false;
-        } else if (temp === 'isEraser') {
-
         }
     }
 }
@@ -90,9 +135,6 @@ function rainbowHandler() {
         colorArray.push(Math.floor(Math.random() * 256));
     }
     let randomColor = 'rgb(' + colorArray.join(', ') + ')';
-
-    // let target = '.' + event.target.classList[1];
-    // document.querySelector(target).style.backgroundColor = randomColor; 
     color = randomColor;
 }
 
@@ -116,6 +158,7 @@ function buttonHandler() {
                     isHover = true;
                 }
                 break;
+
             case 'setColor':
                 if (isRainbow === true) {
                     removeHandler('isRainbow');
@@ -123,6 +166,7 @@ function buttonHandler() {
                     isSetColor = true;
                 }
                 break;
+
             case 'rainbow':
                 if(isSetColor === true) {
                     removeHandler('isSetColor');
@@ -130,6 +174,11 @@ function buttonHandler() {
                     isRainbow = true;
                 }
                 break;
+
+            case 'eraser':
+                eraser();
+                break;
+
             case 'setGrid':
             case 'clear':
                 createGrid();
@@ -158,6 +207,7 @@ function keydownHandler(event) {
                 gridContainer.addEventListener('mouseover', rainbowHandler);
                 isRainbow = true;
             } else if (isRainbow === true) {
+                //set the color back
                 color = setColorButton.value;
                 removeHandler('isRainbow');
                 setColorButton.addEventListener('input', setColor);
