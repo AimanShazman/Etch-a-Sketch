@@ -4,6 +4,7 @@ const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
 const setColor = document.querySelector('#setColor');
 const rainbowButton = document.querySelector('.rainbow');
+const pageContainer = document.querySelector('#pageContainer');
 
 let isHover = true;
 let isDraw = false;
@@ -19,7 +20,6 @@ function clear() {
 function removeHandler(...target) {
     for (x in target) {
         const temp = target[x];
-        console.log(temp);
 
         if (temp === 'isHover') {
             gridContainer.removeEventListener('mouseover', hoverHandler);
@@ -113,7 +113,7 @@ function buttonHandler() {
                 }
                 break;
             case 'rainbow':
-                if((isRainbow === false) && (isHover === true)) {
+                if(isRainbow === false) {
                     gridContainer.addEventListener('mouseover', rainbowHandler);
                 }
                 break;
@@ -125,12 +125,34 @@ function buttonHandler() {
     });
 }
 
+function keydownHandler(event) {
+    if(event.code === 'KeyE') {
+        console.log("keyE is pressed");
+        if(isHover === true) {
+            removeHandler('isHover');
+            gridContainer.addEventListener('click', drawHandler);
+            isDraw = true;
+        } else if (isDraw === true) {
+            removeHandler('isDraw');
+            gridContainer.addEventListener('mouseover', hoverHandler);
+            isHover = true;
+        }
+    }
+}
+
+function setColorHandler() {
+
+}
+
 function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
     colorHandler();
     buttonHandler();
+
+    //press e to toggle between hover and draw
+    window.addEventListener('keypress', keydownHandler);
 
     //set mouse hover effect by default
     gridContainer.addEventListener('mouseover', hoverHandler);

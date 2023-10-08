@@ -8,38 +8,40 @@
 </head>
 
 <body>
-    <!-- pencil div -->
-    <div id="pencil">
-        <img src="./pictures/pencil.png" alt="a pencil">
-        <h1>Etch-a-Sketch</h1>
-    </div>
-
-    <!-- grid div -->
-    <div class="container">
-        <div id="grid"></div>
-        
-        <div id="drawingTools">
-            <div class="colorContainer">
-                <input id="setColor" type="color" value="#000000" />
-                <button class="rainbow">Rainbow</button>
-            </div>
-            <div class="setGridSize">
-                <div class="gridSrollbar">
-                    <p><output id="displayGrid"></output></p>
-                    <input id="gridInput" type="range" min="1" max="64" value="10">
-                </div>
-                <button class="setGrid">Grid</button>
-            </div>
-            <button class="draw">Draw</button>
-            <button class="eraser">Eraser</button>
-            <button class="clear">Clear</button>
+    <div id="pageContainer">
+        <!-- pencil div -->
+        <div id="pencil">
+            <img src="./pictures/pencil.png" alt="a pencil">
+            <h1>Etch-a-Sketch</h1>
         </div>
 
+        <!-- grid div -->
+        <div class="container">
+            <div id="grid"></div>
+            
+            <div id="drawingTools">
+                <div class="colorContainer">
+                    <input id="setColor" type="color" value="#000000" />
+                    <button class="rainbow">Rainbow</button>
+                </div>
+                <div class="setGridSize">
+                    <div class="gridSrollbar">
+                        <p><output id="displayGrid"></output></p>
+                        <input id="gridInput" type="range" min="1" max="64" value="10">
+                    </div>
+                    <button class="setGrid">Grid</button>
+                </div>
+                <button class="draw">Draw</button>
+                <button class="eraser">Eraser</button>
+                <button class="clear">Clear</button>
+            </div>
+
+        </div>
+
+
+        <!-- footer -->
+        <footer></footer>
     </div>
-
-
-    <!-- footer -->
-    <footer></footer>
 </body>
 </html>
 
