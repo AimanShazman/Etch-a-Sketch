@@ -46,20 +46,22 @@ function addHandler(target) {
         case 'isHover':
             gridContainer.addEventListener('mouseover', hoverHandler);
             isHover = true;
+            isHover = true;
             break;
 
         case 'isDraw':
-            gridContainer.addEventListener('click', drawHandler);
+            gridContainer.addEventListener('click', draw);
             isDraw = true;
             break;
 
         case 'isSetColor':
             setColorButton.addEventListener('input', setColor);
+            color = setColorButton.value;
             isSetColor = true;
             break;
 
         case 'isRainbow':
-            gridContainer.addEventListener('mouseover', rainbowHandler);
+            gridContainer.addEventListener('mouseover', rainbow);
             isRainbow = true;
             break;
 
@@ -77,13 +79,13 @@ function removeHandler(...target) {
             gridContainer.removeEventListener('mouseover', hoverHandler);
             isHover = false;
         } else if (temp === 'isDraw' && temp) {
-            gridContainer.removeEventListener('click', drawHandler);
+            gridContainer.removeEventListener('click', draw);
             isDraw = false;
         } else if (temp === 'isSetColor' && temp) {
             setColorButton.removeEventListener('input', setColor);
             isSetColor = false;
         } else if (temp === 'isRainbow' && temp) {
-            gridContainer.removeEventListener('mouseover', rainbowHandler);
+            gridContainer.removeEventListener('mouseover', rainbow);
             isRainbow = false;
         } else if (temp === 'isEraser' && temp) {
             isEraser = false;
@@ -130,18 +132,36 @@ function hoverHandler(event) {
     document.querySelector(target).style.backgroundColor = color;
 }
 
-function drawHandler(event) {
+function draw(event) {
     let target = '.' + event.target.classList[1];
     document.querySelector(target).style.backgroundColor = color;
 }
 
-function rainbowHandler() {
+function rainbow() {
     let colorArray = [];
     for (let i = 0; i < 3; i++) {
         colorArray.push(Math.floor(Math.random() * 256));
     }
     let randomColor = 'rgb(' + colorArray.join(', ') + ')';
     color = randomColor;
+}
+
+function rainbowHandler() {
+    if (isSetColor) {
+        removeHandler('isSetColor', 'isEraser');
+        addHandler('isRainbow');
+
+    } else if (isRainbow) {
+        color = setColorButton.value;
+        removeHandler('isRainbow', 'isEraser');
+        addHandler('isSetColor');
+
+    } else {
+        //if eraser is active, set to rainbow
+        removeHandler('isEraser', 'isSetColor');
+        activeButton = null;
+        addHandler('isRainbow');
+    }
 }
 
 function setColor(event) {
@@ -174,11 +194,12 @@ function buttonHandler() {
                 break;
 
             case 'rainbow':
-                if(!isRainbow) {
-                    removeHandler('isSetColor', 'isEraser');
-                    addHandler('isRainbow');
-                    isRainbow = true;
-                }
+                rainbowHandler();
+                // if(!isRainbow) {
+                //     removeHandler('isSetColor', 'isEraser');
+                //     addHandler('isRainbow');
+                //     isRainbow = true;
+                // }
                 break;
 
             case 'eraser':
@@ -198,9 +219,9 @@ function keydownHandler(event) {
         case 'KeyQ':
             if (isHover) {
                 removeHandler('isHover');
-                gridContainer.addEventListener('click', drawHandler);
+                gridContainer.addEventListener('click', draw);
                 isDraw = true;
-                
+
             } else if (isDraw) {
                 removeHandler('isDraw');
                 gridContainer.addEventListener('mouseover', hoverHandler);
@@ -213,20 +234,7 @@ function keydownHandler(event) {
             break;
         
         case 'KeyR':
-            if (isSetColor) {
-                removeHandler('isSetColor', 'isEraser');
-                addHandler('isRainbow');
-                isRainbow = true;
-
-            } else if (isRainbow) {
-                color = setColorButton.value;
-                removeHandler('isRainbow', 'isEraser');
-                addHandler('isSetColor');
-                isSetColor = true;
-
-            } else {
-                eraser();
-            }
+            rainbowHandler();
             break;
     }
 }
