@@ -137,6 +137,19 @@ function draw(event) {
     document.querySelector(target).style.backgroundColor = color;
 }
 
+function drawHandler() {
+    if (isHover) {
+        removeHandler('isHover');
+        gridContainer.addEventListener('click', draw);
+        isDraw = true;
+
+    } else if (isDraw) {
+        removeHandler('isDraw');
+        gridContainer.addEventListener('mouseover', hoverHandler);
+        isHover = true;
+    }
+}
+
 function rainbow() {
     let colorArray = [];
     for (let i = 0; i < 3; i++) {
@@ -174,15 +187,7 @@ function buttonHandler() {
 
         switch(target.className) {
             case 'draw':
-                if (!isDraw) {
-                    removeHandler('isHover');
-                    addHandler(isDraw);
-                    isDraw = true;
-                } else if (!isHover) {
-                    removeHandler('isDraw');
-                    addHandler(isHover);
-                    isHover = true;
-                }
+                drawHandler();
                 break;
 
             case 'setColor':
@@ -195,11 +200,6 @@ function buttonHandler() {
 
             case 'rainbow':
                 rainbowHandler();
-                // if(!isRainbow) {
-                //     removeHandler('isSetColor', 'isEraser');
-                //     addHandler('isRainbow');
-                //     isRainbow = true;
-                // }
                 break;
 
             case 'eraser':
@@ -217,16 +217,7 @@ function buttonHandler() {
 function keydownHandler(event) {
     switch (event.code) {
         case 'KeyQ':
-            if (isHover) {
-                removeHandler('isHover');
-                gridContainer.addEventListener('click', draw);
-                isDraw = true;
-
-            } else if (isDraw) {
-                removeHandler('isDraw');
-                gridContainer.addEventListener('mouseover', hoverHandler);
-                isHover = true;
-            }
+            drawHandler();
             break;
         
         case 'KeyE':
