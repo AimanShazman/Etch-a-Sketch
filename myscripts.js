@@ -24,12 +24,12 @@ function eraser() {
         activeButton = checkActiveButton();
         removeHandler(activeButton);
         color = 'white';
-        isEraser = true;
+        addHandler('isEraser');
 
     } else if (isEraser === true) {
         addHandler(activeButton);
         activeButton = null;
-        isEraser = false;
+        removeHandler('isEraser');
     }
 }
 
@@ -62,6 +62,10 @@ function addHandler(target) {
             gridContainer.addEventListener('mouseover', rainbowHandler);
             isRainbow = true;
             break;
+
+        case 'isEraser':
+            isEraser = true;
+            break;
     }
 }
 
@@ -81,6 +85,8 @@ function removeHandler(...target) {
         } else if (temp === 'isRainbow' && temp) {
             gridContainer.removeEventListener('mouseover', rainbowHandler);
             isRainbow = false;
+        } else if (temp === 'isEraser' && temp) {
+            isEraser = false;
         }
     }
 }
@@ -148,29 +154,29 @@ function buttonHandler() {
 
         switch(target.className) {
             case 'draw':
-                if (isHover === true) {
+                if (!isDraw) {
                     removeHandler('isHover');
-                    gridContainer.addEventListener('click', drawHandler);
+                    addHandler(isDraw);
                     isDraw = true;
-                } else if (isDraw === true) {
+                } else if (!isHover) {
                     removeHandler('isDraw');
-                    gridContainer.addEventListener('mouseover', hoverHandler);
+                    addHandler(isHover);
                     isHover = true;
                 }
                 break;
 
             case 'setColor':
-                if (isRainbow === true) {
-                    removeHandler('isRainbow');
-                    setColorButton.addEventListener('input', setColor);
+                if (!isSetColor) {
+                    removeHandler('isRainbow', 'isEraser');
+                    addHandler('setColor');
                     isSetColor = true;
                 }
                 break;
 
             case 'rainbow':
-                if(isSetColor === true) {
-                    removeHandler('isSetColor');
-                    gridContainer.addEventListener('mouseover', rainbowHandler);
+                if(!isRainbow) {
+                    removeHandler('isSetColor', 'isEraser');
+                    addHandler('isRainbow');
                     isRainbow = true;
                 }
                 break;
@@ -189,29 +195,37 @@ function buttonHandler() {
 
 function keydownHandler(event) {
     switch (event.code) {
-        case 'KeyE':
-            if (isHover === true) {
+        case 'KeyQ':
+            if (isHover) {
                 removeHandler('isHover');
                 gridContainer.addEventListener('click', drawHandler);
                 isDraw = true;
-            } else if (isDraw === true) {
+                
+            } else if (isDraw) {
                 removeHandler('isDraw');
                 gridContainer.addEventListener('mouseover', hoverHandler);
                 isHover = true;
             }
             break;
-
+        
+        case 'KeyE':
+            eraser();
+            break;
+        
         case 'KeyR':
-            if(isSetColor === true) {
-                removeHandler('isSetColor');
-                gridContainer.addEventListener('mouseover', rainbowHandler);
+            if (isSetColor) {
+                removeHandler('isSetColor', 'isEraser');
+                addHandler('isRainbow');
                 isRainbow = true;
-            } else if (isRainbow === true) {
-                //set the color back
+
+            } else if (isRainbow) {
                 color = setColorButton.value;
-                removeHandler('isRainbow');
-                setColorButton.addEventListener('input', setColor);
+                removeHandler('isRainbow', 'isEraser');
+                addHandler('isSetColor');
                 isSetColor = true;
+
+            } else {
+                eraser();
             }
             break;
     }
