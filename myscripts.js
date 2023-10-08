@@ -139,17 +139,31 @@ function buttonHandler() {
 }
 
 function keydownHandler(event) {
-    if(event.code === 'KeyE') {
-        console.log("keyE is pressed");
-        if (isHover === true) {
-            removeHandler('isHover');
-            gridContainer.addEventListener('click', drawHandler);
-            isDraw = true;
-        } else if (isDraw === true) {
-            removeHandler('isDraw');
-            gridContainer.addEventListener('mouseover', hoverHandler);
-            isHover = true;
-        }
+    switch (event.code) {
+        case 'KeyE':
+            if (isHover === true) {
+                removeHandler('isHover');
+                gridContainer.addEventListener('click', drawHandler);
+                isDraw = true;
+            } else if (isDraw === true) {
+                removeHandler('isDraw');
+                gridContainer.addEventListener('mouseover', hoverHandler);
+                isHover = true;
+            }
+            break;
+
+        case 'KeyR':
+            if(isSetColor === true) {
+                removeHandler('isSetColor');
+                gridContainer.addEventListener('mouseover', rainbowHandler);
+                isRainbow = true;
+            } else if (isRainbow === true) {
+                color = setColorButton.value;
+                removeHandler('isRainbow');
+                setColorButton.addEventListener('input', setColor);
+                isSetColor = true;
+            }
+            break;
     }
 }
 
@@ -158,22 +172,18 @@ function main() {
     getInitialGrid();
     gridScrollbar();
     createGrid();
-    setColorButton.addEventListener('input', setColor);
     buttonHandler();
 
-    //press e to toggle between hover and draw
-    window.addEventListener('keypress', keydownHandler);
+    //set black by default color
+    setColorButton.addEventListener('input', setColor);
 
     //set mouse hover effect by default
     gridContainer.addEventListener('mouseover', hoverHandler);
+
+    //press e to toggle between hover and draw
+    //press r to toggle between setColor and rainbow mode
+    window.addEventListener('keypress', keydownHandler);
 }
 
 main();
 
-//rainbow, draw, hover, eraser
-//add hover
-//when draw button is clicked,
-//remove
-
-
-//toggle between draw and hover
