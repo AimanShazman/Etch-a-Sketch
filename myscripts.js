@@ -3,8 +3,13 @@ const drawingTools = document.querySelector('#drawingTools');
 const gridInput = document.querySelector('#gridInput');
 const displayGrid = document.querySelector('#displayGrid');
 const setColorButton = document.querySelector('.setColor');
-const rainbowButton = document.querySelector('.rainbow');
 const pageContainer = document.querySelector('#pageContainer');
+const rainbowButton = document.querySelector('.rainbow');
+const setGridButton = document.querySelector('.setGrid');
+const drawButton = document.querySelector('.draw');
+const eraserButton = document.querySelector('.eraser');
+const clearButton = document.querySelector('.clear');
+
 
 let isHover = true;
 let isDraw = false;
@@ -41,11 +46,48 @@ function checkActiveButton() {
     }
 }
 
+function addClickEffect(target) {
+    switch(target) {
+        case 'isDraw':
+            drawButton.classList.add('activeButton');
+            break;
+
+        case 'isRainbow':
+            rainbowButton.classList.add('activeButton');
+            break;
+
+        case 'isEraser':
+            eraserButton.classList.add('activeButton');
+            break;
+
+        default:
+            break;
+    }
+}
+
+function removeClickEffect(target) {
+    switch(target) {
+        case 'isDraw':
+            drawButton.classList.remove('activeButton');
+            break;
+
+        case 'isRainbow':
+            rainbowButton.classList.remove('activeButton');
+            break;
+
+        case 'isEraser':
+            eraserButton.classList.remove('activeButton');
+            break;
+
+        default:
+            break;
+    }
+}
+
 function addHandler(target) {
     switch(target) {
         case 'isHover':
             gridContainer.addEventListener('mouseover', hoverHandler);
-            isHover = true;
             isHover = true;
             break;
 
@@ -69,6 +111,8 @@ function addHandler(target) {
             isEraser = true;
             break;
     }
+    addClickEffect(target);
+    // buttonHoverEffect(target);
 }
 
 function removeHandler(...target) {
@@ -90,6 +134,7 @@ function removeHandler(...target) {
         } else if (temp === 'isEraser' && temp) {
             isEraser = false;
         }
+        removeClickEffect(temp);
     }
 }
 
@@ -140,12 +185,12 @@ function draw(event) {
 function drawHandler() {
     if (isHover) {
         removeHandler('isHover');
-        gridContainer.addEventListener('click', draw);
+        addHandler('isDraw');
         isDraw = true;
 
     } else if (isDraw) {
         removeHandler('isDraw');
-        gridContainer.addEventListener('mouseover', hoverHandler);
+        addHandler('isHover');
         isHover = true;
     }
 }
@@ -191,9 +236,9 @@ function setColorHandler() {
 
 function buttonHandler() {
     drawingTools.addEventListener('click', (event) => {
-        let target = event.target;
+        let target = event.target.classList[1];
 
-        switch(target.classList[1]) {
+        switch(target) {
             case 'draw':
                 drawHandler();
                 break;

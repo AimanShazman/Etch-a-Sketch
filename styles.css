@@ -111,11 +111,17 @@ body {
     flex: 1 1 auto;
     justify-content: center;
     align-items: center;
-    background-color: white;
     border-radius: 15px;
     border: solid 2px black;
     height: 50px;
     text-align: center;
     font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+}
 
+#drawingTools .activeButton {
+    background-color: #38598b;
+    color: white;
 }
