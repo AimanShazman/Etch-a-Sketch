@@ -1,5 +1,5 @@
 body {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: rgb(141, 143, 246);
 }
 
@@ -7,8 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 250px;
-    background-color: aqua;
+    height: 200px;
 }
 
 #pencil h1 {
@@ -24,51 +23,99 @@ body {
 .container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
 #grid {
     display: flex;
     flex-flow: row wrap;
-    height: 500px;
-    width: 500px;
+    height: 550px;
+    width: 550px;
     border: solid 10px bisque;
 }
 
 #drawingTools {
     display: flex;
     flex-direction: column;
-    height: 300px;
+    height: 400px;
     width: 300px;
     padding: 5px;
     gap: 5px;
 }
 
-#drawingTools .colorContainer {
+#drawingTools .setColor {
+    display: flex;
+    align-self: center;
+    appearance: none;
+    height: 90px;
+    width: 90px;
+    background-color: transparent;
+    border: none;
+}
+
+.setColor::-webkit-color-swatch {
+    border-radius: 15px;
+    border: solid 5px white;
+}
+
+.gridScrollbar {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: center;
+}
+
+.gridScrollbar p {
+    display: flex;
+    text-align: center;
+}
+
+.gridScrollbar #gridInput {
+    display: flex;
+    flex: 1 1 auto;
+    width: 200px;
+}
+
+/* #drawingTools .colorContainer {
     display: flex;
     flex: 1 1 auto;
     flex-direction: row;
     gap: 5px;
-}
+} */
 
-#drawingTools .setGridSize {
+/* #drawingTools .setGridSize {
     display: flex;
-}
+} */
 
-.setGridSize .gridSrollbar {
+.rainbowGridContainer {
     display: flex;
-    flex-direction: column;
-    flex: 2 1 auto;
+    flex: 1;
+    gap: 10px;
 }
 
+.rainbowGridContainer .rainbow {
+    display: flex;
+    flex: 1;
+    width: 100px;
+}
 
+.rainbowGridContainer .setGrid {
+    display: flex;
+    flex: 1;
+    width: 100px;
+}
 
-#drawingTools button {
+#drawingTools .button {
     display: flex;
     flex: 1 1 auto;
-    /* border: solid 2px black; */
-    border-radius: 1em;
-}
-
-#drawingTools p {
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    border: solid 2px black;
+    height: 50px;
     text-align: center;
+    font-size: 15px;
+
 }

@@ -170,7 +170,7 @@ function rainbowHandler() {
         addHandler('isSetColor');
 
     } else {
-        //if eraser is active, set to rainbow
+        //if eraser is on and user clicked rainbow, turn eraser off and rainbow on
         removeHandler('isEraser', 'isSetColor');
         activeButton = null;
         addHandler('isRainbow');

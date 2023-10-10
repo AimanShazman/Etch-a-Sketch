@@ -20,20 +20,20 @@
             <div id="grid"></div>
             
             <div id="drawingTools">
-                <div class="colorContainer">
-                    <input class="setColor" type="color" value="#000000" />
-                    <button class="rainbow">Rainbow</button>
+                <input class="setColor" type="color" value="#000000"/>
+
+                <div class="gridScrollbar">
+                    <p><output id="displayGrid"></output></p>
+                    <input id="gridInput" type="range" min="1" max="64" value="10">
                 </div>
-                <div class="setGridSize">
-                    <div class="gridSrollbar">
-                        <p><output id="displayGrid"></output></p>
-                        <input id="gridInput" type="range" min="1" max="64" value="10">
-                    </div>
-                    <button class="setGrid">Grid</button>
+
+                <div class="rainbowGridContainer">
+                    <button class="button rainbow">Rainbow</button>
+                    <button class="button setGrid">Grid</button>
                 </div>
-                <button class="draw">Draw</button>
-                <button class="eraser">Eraser</button>
-                <button class="clear">Clear</button>
+                <button class="button draw">Draw</button>
+                <button class="button eraser">Eraser</button>
+                <button class="button clear">Clear</button>
             </div>
 
         </div>
@@ -45,3 +45,24 @@
 </body>
 </html>
 
+<!-- <div class="container">
+    <div id="grid"></div>
+    
+    <div id="drawingTools">
+        <div class="colorContainer">
+            <input class="setColor" type="color" value="#000000" />
+            <button class="rainbow">Rainbow</button>
+        </div>
+        <div class="setGridSize">
+            <div class="gridSrollbar">
+                <p><output id="displayGrid"></output></p>
+                <input id="gridInput" type="range" min="1" max="64" value="10">
+            </div>
+            <button class="setGrid">Grid</button>
+        </div>
+        <button class="draw">Draw</button>
+        <button class="eraser">Eraser</button>
+        <button class="clear">Clear</button>
+    </div>
+
+</div> -->
