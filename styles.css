@@ -43,7 +43,7 @@ body {
     height: 400px;
     width: 300px;
     padding: 5px;
-    gap: 5px;
+    gap: 10px;
 }
 
 #drawingTools .setColor {
@@ -77,35 +77,13 @@ body {
     display: flex;
     flex: 1 1 auto;
     width: 200px;
+    overflow: hidden;
+    background: #9a905d;
 }
 
-/* #drawingTools .colorContainer {
+.wrapper {
     display: flex;
-    flex: 1 1 auto;
-    flex-direction: row;
-    gap: 5px;
-} */
-
-/* #drawingTools .setGridSize {
-    display: flex;
-} */
-
-.rainbowGridContainer {
-    display: flex;
-    flex: 1;
     gap: 10px;
-}
-
-.rainbowGridContainer .rainbow {
-    display: flex;
-    flex: 1;
-    width: 100px;
-}
-
-.rainbowGridContainer .setGrid {
-    display: flex;
-    flex: 1;
-    width: 100px;
 }
 
 #drawingTools .button {
@@ -113,10 +91,10 @@ body {
     flex: 1 1 auto;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
+    min-height: 50px;
+    min-width: 50px;
     border: solid 2px black;
-    height: 50px;
-    text-align: center;
+    border-radius: 15px;
     font-size: 15px;
     outline: none;
     cursor: pointer;
