@@ -1,6 +1,8 @@
 body {
     font-family: Roboto, sans-serif;
     background-color: #5e63b6;
+    padding: 0;
+    margin: 0;
 }
 
 #pencil {
@@ -116,4 +118,31 @@ body {
 
 #drawingTools .activeButton {
     background-color: #f5c7f7;
+}
+
+#pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    display: flex;
+    background-color: #a393eb;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: auto;
+    font-size: 20px;
+}
+
+footer img {
+    height: 40px;
+    padding: 5px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    list-style-type: none;
 }

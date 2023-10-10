@@ -7,62 +7,42 @@
     <script src="myscripts.js" defer></script>
 </head>
 
-<body>
-    <div id="pageContainer">
-        <!-- pencil div -->
-        <div id="pencil">
-            <img src="./pictures/pencil.png" alt="a pencil">
-            <h1>Etch-a-Sketch</h1>
-        </div>
-
-        <!-- grid div -->
-        <div class="container">
-            <div id="grid"></div>
-            
-            <div id="drawingTools">
-                <input class="setColor" type="color" value="#000000"/>
-
-                <div class="gridScrollbar">
-                    <p><output id="displayGrid"></output></p>
-                    <input id="gridInput" type="range" min="1" max="64" value="10">
-                </div>
-
-                <button class="button rainbow">Rainbow (R)</button>
-                <button class="button draw">Draw (Q)</button>
-                <button class="button eraser">Eraser (E)</button>
-                <div class="wrapper">
-                    <button class="button clear">Clear</button>
-                    <button class="button setGrid">Grid</button>
-                </div>
+    <body>
+        <div id="pageContainer">
+      
+            <!-- pencil div -->
+            <div id="pencil">
+                <img src="./pictures/pencil.png" alt="a pencil">
+                <h1>Etch-a-Sketch</h1>
             </div>
 
+            <!-- grid div -->
+            <div class="container">
+                <div id="grid"></div>
+                
+                <div id="drawingTools">
+                    <input class="setColor" type="color" value="#000000"/>
+
+                    <div class="gridScrollbar">
+                        <p><output id="displayGrid"></output></p>
+                        <input id="gridInput" type="range" min="1" max="64" value="10">
+                    </div>
+
+                    <button class="button rainbow">Rainbow (R)</button>
+                    <button class="button draw">Draw (Q)</button>
+                    <button class="button eraser">Eraser (E)</button>
+                    <div class="wrapper">
+                        <button class="button clear">Clear</button>
+                        <button class="button setGrid">Grid</button>
+                    </div>
+                </div>
+            </div>
+  
+            <footer>
+                Copyright © 
+                <img src="./pictures/github-mark/github-mark.png">
+                <a href="https://github.com/AimanShazman">AimanShazman</a>
+            </footer>
         </div>
-
-
-        <!-- footer -->
-        <footer></footer>
-    </div>
-</body>
+    </body>
 </html>
-
-<!-- <div class="container">
-    <div id="grid"></div>
-    
-    <div id="drawingTools">
-        <input class="setColor" type="color" value="#000000"/>
-
-        <div class="gridScrollbar">
-            <p><output id="displayGrid"></output></p>
-            <input id="gridInput" type="range" min="1" max="64" value="10">
-        </div>
-
-        <div class="rainbowGridContainer">
-            <button class="button rainbow">Rainbow</button>
-            <button class="button setGrid">Grid</button>
-        </div>
-        <button class="button draw">Draw</button>
-        <button class="button eraser">Eraser</button>
-        <button class="button clear">Clear</button>
-    </div>
-
-</div> -->
