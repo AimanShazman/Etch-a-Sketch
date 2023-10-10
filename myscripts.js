@@ -193,7 +193,7 @@ function buttonHandler() {
     drawingTools.addEventListener('click', (event) => {
         let target = event.target;
 
-        switch(target.className) {
+        switch(target.classList[1]) {
             case 'draw':
                 drawHandler();
                 break;
