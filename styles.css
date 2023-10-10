@@ -1,5 +1,5 @@
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: Roboto, sans-serif;
     background-color: #5e63b6;
 }
 
@@ -40,7 +40,7 @@ body {
 #drawingTools {
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 450px;
     width: 300px;
     padding: 5px;
     gap: 10px;
@@ -81,12 +81,19 @@ body {
     background: #9a905d;
 }
 
+.gridScrollbar #displayGrid {
+    font-size: 20px;
+    color: white;
+    font: bold;
+}
+
 .wrapper {
     display: flex;
     gap: 10px;
 }
 
 #drawingTools .button {
+    font-family: Roboto, sans-serif;
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
@@ -95,7 +102,7 @@ body {
     min-width: 50px;
     border: solid 2px black;
     border-radius: 15px;
-    font-size: 15px;
+    font-size: 20px;
     outline: none;
     cursor: pointer;
     background-color: white;
