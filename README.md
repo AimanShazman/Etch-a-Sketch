@@ -1,6 +1,6 @@
 # Etch-a-Sketch
-Odin-Project Foundations : (Etch-a-Sketch)
-collaborated with: <a href="https://github.com/NadhiraSyazwani">Nadhira Syazwani</a>
+<p>Odin-Project Foundations : (Etch-a-Sketch)</p>
+<p>collaborated with: <a href="https://github.com/NadhiraSyazwani">Nadhira Syazwani</a></p>
 
 <a href="https://aimanshazman.github.io/Etch-a-Sketch/">Try it out here!</a>
 <img src="./pictures/website-image.png" alt="the website image">
@@ -18,7 +18,7 @@ collaborated with: <a href="https://github.com/NadhiraSyazwani">Nadhira Syazwani
     <li>Set Grid: Clear the grid and create a new grid size based on Grid ScrollBar.</li>
 </ul>
 
-Shortcuts!
+## Shortcuts!
 <ul>
     <li>Draw mode: Press the Q key</li>
     <li>Eraser mode: Press the E key</li>
@@ -26,5 +26,5 @@ Shortcuts!
     <li>Shade mode: Press the S key</li>
 </ul>
 
-### Image Credit: 
--"pencil" by "goff.brian"s is licensed under "vecteezy.com"
+## Image Credit: 
+-Pencil by Brian Goff: <a href="https://www.vecteezy.com/vector-art/554192-yellow-pencil-vector">
