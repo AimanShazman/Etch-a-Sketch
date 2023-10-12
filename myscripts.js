@@ -9,32 +9,33 @@ const setGridButton = document.querySelector('.setGrid');
 const drawButton = document.querySelector('.draw');
 const eraserButton = document.querySelector('.eraser');
 const clearButton = document.querySelector('.clear');
-
+const shadeButton = document.querySelector('.shade');
 
 let isHover = true;
 let isDraw = false;
 let isSetColor = true;
 let isRainbow = false;
 let isEraser = false;
+let isShade = false;
 let activeButton; //store currently active button when using eraser
-let color = 'black';
-let grid; 
+let currentGridColor;
+let color = 'rgb(0, 0, 0)';
+let grid; //use to calculate the size of grid
 
 function clear() {
     gridContainer.textContent = '';
 }
 
 function eraser() {
-    if(isEraser === false) {
-        activeButton = checkActiveButton();
-        removeHandler(activeButton);
-        color = 'white';
+    if(!isEraser) {
+        // activeButton = checkActiveButton();
+        removeHandler('isSetColor', 'isRainbow', 'isShade');
+        color = 'rgb(255, 255, 255)';
         addHandler('isEraser');
 
-    } else if (isEraser === true) {
-        addHandler(activeButton);
-        activeButton = null;
+    } else if (isEraser) {
         removeHandler('isEraser');
+        addHandler('isSetColor');
     }
 }
 
@@ -43,6 +44,8 @@ function checkActiveButton() {
         return 'isSetColor';
     } else if (isRainbow) {
         return 'isRainbow';
+    } else if (isShade) {
+        return 'isShade';
     }
 }
 
@@ -58,6 +61,10 @@ function addClickEffect(target) {
 
         case 'isEraser':
             eraserButton.classList.add('activeButton');
+            break;
+
+        case 'isShade':
+            shadeButton.classList.add('activeButton');
             break;
 
         default:
@@ -77,6 +84,10 @@ function removeClickEffect(target) {
 
         case 'isEraser':
             eraserButton.classList.remove('activeButton');
+            break;
+
+        case 'isShade':
+            shadeButton.classList.remove('activeButton');
             break;
 
         default:
@@ -110,13 +121,18 @@ function addHandler(target) {
         case 'isEraser':
             isEraser = true;
             break;
+
+        case 'isShade':
+            // gridContainer.addEventListener('mouseover', shade);
+            isShade = true;
+            break;
     }
     addClickEffect(target);
     // buttonHoverEffect(target);
 }
 
 function removeHandler(...target) {
-    for (x in target) {
+    for (let x in target) {
         const temp = target[x];
 
         if (temp === 'isHover' && temp) {
@@ -133,6 +149,8 @@ function removeHandler(...target) {
             isRainbow = false;
         } else if (temp === 'isEraser' && temp) {
             isEraser = false;
+        } else if (temp === 'isShade' && temp) {
+            isShade = false;
         }
         removeClickEffect(temp);
     }
@@ -164,7 +182,7 @@ function createGrid() {
         const newDiv = document.createElement('div');
         let className = "grid_" + i;
         newDiv.classList.add("grids", className);
-        newDiv.style.cssText = "flex: 1 1 auto; background-color: white;";
+        newDiv.style.cssText = "flex: 1 1 auto; background-color: rgb(255, 255, 255);";
         newDiv.style.minWidth = gridWidth + '%';
         gridContainer.appendChild(newDiv);
     }
@@ -172,13 +190,28 @@ function createGrid() {
 }
 
 function hoverHandler(event) {
-    //get the className, change color
     let target = '.' + event.target.classList[1];
+
+    //check for the current grid color
+    currentGridColor = document.querySelector(target).style.backgroundColor;
+
+    //color the grid
+    if (isShade) {
+        shade();
+    } 
     document.querySelector(target).style.backgroundColor = color;
 }
 
 function draw(event) {
     let target = '.' + event.target.classList[1];
+
+    //check for the current grid color
+    currentGridColor = document.querySelector(target).style.backgroundColor;
+
+    //color the grid
+    if (isShade) {
+        shade();
+    } 
     document.querySelector(target).style.backgroundColor = color;
 }
 
@@ -206,17 +239,17 @@ function rainbow() {
 
 function rainbowHandler() {
     if (isSetColor) {
-        removeHandler('isSetColor', 'isEraser');
+        removeHandler('isSetColor', 'isEraser', 'isShade');
         addHandler('isRainbow');
 
     } else if (isRainbow) {
         color = setColorButton.value;
-        removeHandler('isRainbow', 'isEraser');
+        removeHandler('isRainbow', 'isEraser', 'isShade');
         addHandler('isSetColor');
 
     } else {
         //if eraser is on and user clicked rainbow, turn eraser off and rainbow on
-        removeHandler('isEraser', 'isSetColor');
+        removeHandler('isEraser', 'isSetColor', 'isShade');
         activeButton = null;
         addHandler('isRainbow');
     }
@@ -228,10 +261,58 @@ function setColor(event) {
 
 function setColorHandler() {
     if (!isSetColor) {
-        removeHandler('isRainbow', 'isEraser');
+        removeHandler('isRainbow', 'isEraser', 'isShade');
         addHandler('setColor');
         isSetColor = true;
     }
+}
+
+//working on (shade, rainbow, eraser)
+function shadeHandler() {
+    if(!isShade) {
+        removeHandler('isSetColor', 'isRainbow', 'isEraser');
+        addHandler('isShade');
+    } else if (isShade) {
+        removeHandler('isShade');
+        addHandler('isSetColor');
+    }
+}
+
+function shade(event) {
+
+    let rgb = currentGridColor.split(",");
+    let red = rgb[0].substr(4);
+    let green = rgb[1];
+    let blue = rgb[2].slice(0, -1);
+
+    //the max value of rgb is 255, to make a color black on the 10th click,
+    //set the num to 255/10 = 25.5
+    const num = 25.5; 
+
+    //red
+    if(red <= num) {
+        red = red - red;
+    } else if(red > num) {
+        red = red - num;
+    }
+
+    //green
+    if(green <= num) {
+        green = green - green;
+    } else if(green > num) {
+        green = green - num;
+    }
+
+    //blue
+    if(blue <= num) {
+        blue = blue - blue;
+    } else if(red > num) {
+        blue = blue - num;
+    }
+
+    let newShade = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+    // console.log(newShade);
+    color = newShade
 }
 
 function buttonHandler() {
@@ -254,6 +335,10 @@ function buttonHandler() {
             case 'eraser':
                 eraser();
                 break;
+            
+            case 'shade':
+                shadeHandler();
+                break;
 
             case 'setGrid':
             case 'clear':
@@ -275,6 +360,10 @@ function keydownHandler(event) {
         
         case 'KeyR':
             rainbowHandler();
+            break;
+
+        case 'KeyS':
+            shadeHandler()
             break;
     }
 }

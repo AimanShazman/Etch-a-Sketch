@@ -42,7 +42,7 @@ body {
 #drawingTools {
     display: flex;
     flex-direction: column;
-    height: 450px;
+    height: 480px;
     width: 300px;
     padding: 5px;
     gap: 10px;
@@ -94,13 +94,18 @@ body {
     gap: 10px;
 }
 
+.clear, .setGrid {
+    display: flex;
+    flex: auto;
+}
+
 #drawingTools .button {
     font-family: Roboto, sans-serif;
     display: flex;
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
     justify-content: center;
     align-items: center;
-    min-height: 50px;
+    height: 50px;
     min-width: 50px;
     border: solid 2px black;
     border-radius: 15px;
