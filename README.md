@@ -26,5 +26,5 @@
     <li>Shade mode: Press the S key</li>
 </ul>
 
-## Image Credit: 
--Pencil by Brian Goff: <a href="https://www.vecteezy.com/vector-art/554192-yellow-pencil-vector">
+## Image Credit
+-Pencil by Brian Goff: https://www.vecteezy.com/vector-art/554192-yellow-pencil-vector
