@@ -306,7 +306,7 @@ function shade(event) {
     //blue
     if(blue <= num) {
         blue = blue - blue;
-    } else if(red > num) {
+    } else if(blue > num) {
         blue = blue - num;
     }
 
