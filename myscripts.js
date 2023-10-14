@@ -13,7 +13,7 @@ const shadeButton = document.querySelector('.shade');
 
 let isHover = true;
 let isDraw = false;
-let isSetColor = true;
+let isSetColor = false;
 let isRainbow = false;
 let isEraser = false;
 let isShade = false;
@@ -394,14 +394,10 @@ function main() {
     createGrid();
     buttonHandler();
 
-    //set black by default color
-    setColorButton.addEventListener('input', setColor);
+    //draw and black color is set by default
+    drawHandler();
+    setColorHandler();
 
-    //set mouse hover effect by default
-    gridContainer.addEventListener('mouseover', hoverHandler);
-
-    //press e to toggle between hover and draw
-    //press r to toggle between setColor and rainbow mode
     window.addEventListener('keypress', keydownHandler);
 }
 
