@@ -9,7 +9,7 @@
 <ul>
     <li>Set Color: Choose the color</li>
     <li>Grid ScrollBar: Scroll to choose the size of grid</li>
-    <li>Draw mode: Color a single grid. Can be toggled to switch between Draw mode and Hover mode.</li>
+    <li>Draw mode: Color a grid on mouse click or hold and drag. Can be toggled to switch between Draw mode and Hover mode.</li>
     <li>Hover mode: Color the grid on mouse hover.</li>
     <li>Eraser mode: Erase colored grid</li>
     <li>Rainbow mode: Generate a random color</li>
