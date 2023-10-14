@@ -1,6 +1,6 @@
 # Etch-a-Sketch
 <p>Odin-Project Foundations : (Etch-a-Sketch)</p>
-<p>collaborated with: <a href="https://github.com/NadhiraSyazwani">Nadhira Syazwani</a></p>
+<p>Collaborated with: <a href="https://github.com/NadhiraSyazwani">Nadhira Syazwani</a></p>
 
 <a href="https://aimanshazman.github.io/Etch-a-Sketch/">Try it out here!</a>
 <img src="./pictures/website-image.png" alt="the website image">
