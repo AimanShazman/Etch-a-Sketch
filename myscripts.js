@@ -117,7 +117,6 @@ function addHandler(target) {
             break;
 
         case 'isRainbow':
-            // gridContainer.addEventListener('mouseover', rainbow);
             isRainbow = true;
             break;
 
@@ -126,6 +125,7 @@ function addHandler(target) {
             break;
 
         case 'isShade':
+            gridContainer.addEventListener('click', shadeClickEvent);
             gridContainer.addEventListener('mouseover', shade);
             isShade = true;
             break;
@@ -149,11 +149,12 @@ function removeHandler(...target) {
             setColorButton.removeEventListener('input', setColor);
             isSetColor = false;
         } else if (temp === 'isRainbow' && temp) {
-            // gridContainer.removeEventListener('mouseover', rainbow);
             isRainbow = false;
         } else if (temp === 'isEraser' && temp) {
             isEraser = false;
         } else if (temp === 'isShade' && temp) {
+            gridContainer.removeEventListener('click', shadeClickEvent);
+            gridContainer.removeEventListener('mouseover', shade);
             isShade = false;
         }
         removeClickEffect(temp);
@@ -291,6 +292,10 @@ function shadeHandler() {
         removeHandler('isShade');
         addHandler('isSetColor');
     }
+}
+
+function shadeClickEvent(event) {
+    currentGridColor = event.target.style.backgroundColor;
 }
 
 function shade(event) {
