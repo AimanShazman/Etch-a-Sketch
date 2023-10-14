@@ -21,6 +21,7 @@ let activeButton; //store currently active button when using eraser
 let currentGridColor;
 let color = 'rgb(0, 0, 0)';
 let grid; //use to calculate the size of grid
+let isMouseDown = false;
 
 function clear() {
     gridContainer.textContent = '';
@@ -103,7 +104,9 @@ function addHandler(target) {
             break;
 
         case 'isDraw':
-            gridContainer.addEventListener('click', draw);
+            gridContainer.addEventListener('mousedown', mouseDownEvent);
+            gridContainer.addEventListener('mouseup', mouseUpEvent);
+            gridContainer.addEventListener('mouseover', draw);
             isDraw = true;
             break;
 
@@ -114,7 +117,7 @@ function addHandler(target) {
             break;
 
         case 'isRainbow':
-            gridContainer.addEventListener('mouseover', rainbow);
+            // gridContainer.addEventListener('mouseover', rainbow);
             isRainbow = true;
             break;
 
@@ -123,12 +126,11 @@ function addHandler(target) {
             break;
 
         case 'isShade':
-            // gridContainer.addEventListener('mouseover', shade);
+            gridContainer.addEventListener('mouseover', shade);
             isShade = true;
             break;
     }
     addClickEffect(target);
-    // buttonHoverEffect(target);
 }
 
 function removeHandler(...target) {
@@ -139,13 +141,15 @@ function removeHandler(...target) {
             gridContainer.removeEventListener('mouseover', hoverHandler);
             isHover = false;
         } else if (temp === 'isDraw' && temp) {
-            gridContainer.removeEventListener('click', draw);
+            gridContainer.removeEventListener('mouseover', draw);
+            gridContainer.removeEventListener('mousedown', mouseDownEvent);
+            gridContainer.removeEventListener('mouseup', mouseUpEvent);
             isDraw = false;
         } else if (temp === 'isSetColor' && temp) {
             setColorButton.removeEventListener('input', setColor);
             isSetColor = false;
         } else if (temp === 'isRainbow' && temp) {
-            gridContainer.removeEventListener('mouseover', rainbow);
+            // gridContainer.removeEventListener('mouseover', rainbow);
             isRainbow = false;
         } else if (temp === 'isEraser' && temp) {
             isEraser = false;
@@ -190,41 +194,53 @@ function createGrid() {
 }
 
 function hoverHandler(event) {
-    let target = '.' + event.target.classList[1];
-
     //check for the current grid color
-    currentGridColor = document.querySelector(target).style.backgroundColor;
+    currentGridColor = event.target.style.backgroundColor;
 
-    //color the grid
     if (isShade) {
         shade();
-    } 
-    document.querySelector(target).style.backgroundColor = color;
+    } else if (isRainbow) {
+        rainbow();
+    }
+    event.target.style.backgroundColor = color;
+}
+
+function mouseDownEvent(event) {
+    if(isShade) {
+        shade();
+    } else if (isRainbow) {
+        rainbow();
+    }
+    event.target.style.backgroundColor = color;
+    isMouseDown = true;
+}
+
+function mouseUpEvent() {
+    isMouseDown = false
 }
 
 function draw(event) {
-    let target = '.' + event.target.classList[1];
-
     //check for the current grid color
-    currentGridColor = document.querySelector(target).style.backgroundColor;
+    currentGridColor = event.target.style.backgroundColor;
 
-    //color the grid
-    if (isShade) {
-        shade();
+    if(isMouseDown) {
+        if(isShade) {
+            shade();
+        } else if (isRainbow) {
+            rainbow();
+        }
+        event.target.style.backgroundColor = color;
     } 
-    document.querySelector(target).style.backgroundColor = color;
 }
 
 function drawHandler() {
     if (isHover) {
         removeHandler('isHover');
         addHandler('isDraw');
-        isDraw = true;
 
     } else if (isDraw) {
         removeHandler('isDraw');
         addHandler('isHover');
-        isHover = true;
     }
 }
 
@@ -267,7 +283,6 @@ function setColorHandler() {
     }
 }
 
-//working on (shade, rainbow, eraser)
 function shadeHandler() {
     if(!isShade) {
         removeHandler('isSetColor', 'isRainbow', 'isEraser');
@@ -279,7 +294,6 @@ function shadeHandler() {
 }
 
 function shade(event) {
-
     let rgb = currentGridColor.split(",");
     let red = rgb[0].substr(4);
     let green = rgb[1];
