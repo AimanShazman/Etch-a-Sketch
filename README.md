@@ -27,4 +27,7 @@
 </ul>
 
 ## Image Credit
--Pencil by Brian Goff: https://www.vecteezy.com/vector-art/554192-yellow-pencil-vector
+<ul>
+    <li>Pencil by Brian Goff: https://www.vecteezy.com/vector-art/554192-yellow-pencil-vector</li>
+</ul>
+
