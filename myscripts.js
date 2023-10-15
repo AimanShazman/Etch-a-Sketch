@@ -14,7 +14,7 @@ const shadeButton = document.querySelector('.shade');
 let isHover = true;
 let isDraw = false;
 let isSetColor = false;
-let isRainbow = false;
+let isRainbow = true;
 let isEraser = false;
 let isShade = false;
 let activeButton; //store currently active button when using eraser
@@ -211,7 +211,7 @@ function mouseDownEvent(event) {
         shade();
     } else if (isRainbow) {
         rainbow();
-    }
+    } 
     event.target.style.backgroundColor = color;
     isMouseDown = true;
 }
@@ -279,8 +279,7 @@ function setColor(event) {
 function setColorHandler() {
     if (!isSetColor) {
         removeHandler('isRainbow', 'isEraser', 'isShade');
-        addHandler('setColor');
-        isSetColor = true;
+        addHandler('isSetColor');
     }
 }
 
@@ -395,8 +394,8 @@ function main() {
     buttonHandler();
 
     //draw and black color is set by default
-    drawHandler();
     setColorHandler();
+    drawHandler();
 
     window.addEventListener('keypress', keydownHandler);
 }
